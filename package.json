@@ -11,13 +11,34 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vs-tictactoe.ttt"
+    "onCommand:vs-tictactoe.play",
+    "onView:vs-tictactoe.side-bar"
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vs-tictactoe-sidebar-view",
+          "title": "VS-TicTacToe",
+          "icon": "media/ttt.svg"
+        }
+      ]
+    },
+    "views": {
+      "vs-tictactoe-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "vs-tictactoe.side-bar",
+          "name": "VS-TicTacToe",
+          "icon": "media/ttt.svg",
+          "contextualTitle": "VS-TicTacToe"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "vs-tictactoe.ttt",
+        "command": "vs-tictactoe.play",
         "title": "Start a tic tac toe game."
       }
     ]
