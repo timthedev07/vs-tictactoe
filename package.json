@@ -3,6 +3,7 @@
   "displayName": "vs-tictactoe",
   "description": "Play tic tac toe right in your VScode sidebar while procrastinating(I know you often do).",
   "version": "0.0.1",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.61.0"
   },
