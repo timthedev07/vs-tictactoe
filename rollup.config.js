@@ -8,7 +8,7 @@ import typescript from "@rollup/plugin-typescript";
 const production = !process.env.ROLLUP_WATCH;
 
 export default (() => {
-  const input = "main.ts";
+  const input = "app.ts";
   const name = input.split(".")[0];
   return {
     input: "webviews/" + input,
