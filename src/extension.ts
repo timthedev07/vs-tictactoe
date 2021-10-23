@@ -1,20 +1,32 @@
 import * as vscode from "vscode";
+import { SidebarProvider } from "./SidebarProvider";
+
+const ENTRY_COMMAND = "vs-tictactoe.play";
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "vs-tictactoe" is now active!');
+  const sidebarProvider = new SidebarProvider(context.extensionUri);
 
-  let disposable = vscode.commands.registerCommand(
-    "vs-tictactoe.ttt",
-    async () => {
-      const response = await vscode.window.showInformationMessage(
-        "Do you like Next.js",
-        "Yes",
-        "Of course"
-      );
-      console.log(response);
-    }
+  const item = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right
+  );
+  item.text = "$(beaker) Start a Tic-Tac-Toe game";
+  item.command = ENTRY_COMMAND;
+  item.show();
+
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider(
+      "vs-tictactoe.side-bar",
+      sidebarProvider
+    )
   );
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(
+    vscode.commands.registerCommand(ENTRY_COMMAND, () => {
+      console.log("command entered");
+      sidebarProvider._view?.show();
+    })
+  );
 }
+
+// this method is called when your extension is deactivated
 export function deactivate() {}
