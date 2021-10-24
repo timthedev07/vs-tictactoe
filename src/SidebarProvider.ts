@@ -17,7 +17,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionUri],
     };
 
-    console.log("resolving webview view");
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
   }
 
@@ -42,8 +41,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
     // Use a nonce to only allow a specific script to be run.
     const nonce = getNonce();
-
-    console.log("HTML gotten");
 
     return `<!DOCTYPE html>
 			<html lang="en">
