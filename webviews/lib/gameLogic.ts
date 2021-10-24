@@ -105,8 +105,8 @@ export const scrubMove = (board: Board): Action => {
   let i;
   let j;
   do {
-    i = getRandom(0, 3);
-    j = getRandom(0, 3);
+    i = getRandom(0, 2);
+    j = getRandom(0, 2);
     console.log(`Looping... ${i}, ${j}`);
   } while (board[i][j] !== EMPTY);
 
