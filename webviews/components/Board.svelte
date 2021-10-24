@@ -1,30 +1,119 @@
 <script lang="ts">
-  import { initialState, player } from "../lib/gameLogic";
+  import {
+    initialState,
+    minimax,
+    player,
+    result,
+    terminal,
+    winner,
+  } from "../lib/gameLogic";
   import { Board, Cell, EMPTY } from "../lib/types";
   import CellComponent from "./Cell.svelte";
 
   let board: Board = initialState();
-  let winner: Cell = EMPTY;
+  let chosenPlayer: Cell = EMPTY;
+  $: winner_ = winner(board);
+  $: terminal_ = terminal(board);
   $: currPlayer = player(board);
+  $: disableAll = winner_ !== EMPTY || currPlayer !== chosenPlayer;
+
+  const handleCellClick = (action: [number, number]) => {
+    board = result(board, action);
+    // make ai move
+    setTimeout(() => {
+      const aiResult = minimax(board);
+      if (aiResult) {
+        board = result(board, aiResult);
+      }
+    }, 500);
+  };
+
+  const handleSelectPlayer = (player: Cell) => {
+    chosenPlayer = player;
+    if (player === "O") {
+      setTimeout(() => {
+        const aiResult = minimax(board);
+        if (aiResult) {
+          board = result(board, aiResult);
+        }
+      }, 1000);
+    }
+  };
+
+  const handleNewGame = () => {
+    chosenPlayer = EMPTY;
+    board = initialState();
+  };
 </script>
 
-<pre>Current player: {currPlayer}</pre>
-<pre>Winner player: {winner}</pre>
-<div class="board">
-  {#each board as row}
-    {#each row as cell}
-      <CellComponent {cell} />
+{#if chosenPlayer}
+  <div id="game-control">
+    {#if terminal_}
+      <button
+        on:click={() => {
+          handleNewGame();
+        }}>Play Again</button
+      >
+    {/if}
+    <div id="game-message">
+      {#if terminal_}
+        {#if winner_}
+          Winner: {winner_}
+        {:else}
+          Tie
+        {/if}
+      {:else}
+        Current player: {currPlayer}
+      {/if}
+    </div>
+  </div>
+  <div class="board">
+    {#each board as row, i}
+      {#each row as cell, j}
+        <CellComponent {disableAll} {cell} {i} {j} {handleCellClick} />
+      {/each}
     {/each}
-  {/each}
-</div>
+  </div>
+{:else}
+  <br />
+  <br />
+  <div style="text-align: center; width: 100%;">Play as</div>
+  <br />
+  <div
+    style="display: flex; align-items: center; justify-content: space-around;"
+  >
+    <button on:click={() => handleSelectPlayer("O")} class="player-button"
+      >O</button
+    >
+    <button on:click={() => handleSelectPlayer("X")} class="player-button"
+      >X</button
+    >
+  </div>
+{/if}
 
 <style>
+  .player-button {
+    width: 40px;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  #game-message {
+    text-align: center;
+    text-decoration: underline;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  #game-control {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
   .board {
-    --size: 150px;
-    height: var(--size);
-    width: var(--size);
+    --size: 50px;
+    height: calc(var(--size) * 3);
+    width: calc(var(--size) * 3);
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: var(--size) var(--size) var(--size);
+    grid-template-rows: var(--size) var(--size) var(--size);
   }
 </style>

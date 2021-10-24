@@ -3,7 +3,6 @@
 </script>
 
 <main>
-  <h1>Hello from Svelte</h1>
-  <button>Click here to get rid of homework</button>
+  <h2 style="text-align: center;">Tic Tac Toe</h2>
   <Board />
 </main>
