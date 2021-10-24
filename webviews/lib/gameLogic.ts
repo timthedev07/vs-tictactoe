@@ -95,6 +95,21 @@ export const utility = (board: Board) => {
   }
 };
 
+const scrubMove = (board: Board) => {
+  const getRandom = (min: number, max: number) => {
+    return Math.random() * (max - min) + min;
+  };
+
+  let i;
+  let j;
+  do {
+    i = getRandom(0, 3);
+    j = getRandom(0, 3);
+  } while (board[i][j] !== EMPTY);
+
+  return [i, j];
+};
+
 /**
  * Returns the optimal action for the current player on the board.
  */
