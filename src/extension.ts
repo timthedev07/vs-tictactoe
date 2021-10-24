@@ -22,7 +22,6 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(ENTRY_COMMAND, () => {
-      console.log("command entered");
       sidebarProvider._view?.show();
     })
   );
