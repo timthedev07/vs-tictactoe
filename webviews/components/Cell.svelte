@@ -9,15 +9,28 @@
 
   let disabled: boolean;
   $: disabled = cell === "O" || cell === "X" || disableAll;
+
+  const cellPositionToClassName: Record<string, string> = {
+    "0,0": "border-bottom",
+    "0,1": "border-x border-bottom",
+    "0,2": "border-bottom",
+    "1,0": "",
+    "1,1": "border-x",
+    "1,2": "",
+    "2,0": "border-top",
+    "2,1": "border-x border-top",
+    "2,2": "border-top",
+  };
 </script>
 
-<button on:click={() => handleCellClick([i, j])} {disabled} class="cell"
-  >{cell || ""}</button
+<button
+  on:click={() => handleCellClick([i, j])}
+  {disabled}
+  class={`cell ${cellPositionToClassName[`${i},${j}`]}`}>{cell || ""}</button
 >
 
 <style>
   .cell {
-    /* border: white solid 1px; */
     background-color: goldenrod;
   }
 
@@ -28,5 +41,16 @@
 
   .cell:disabled {
     cursor: default;
+  }
+
+  .border-x {
+    border-left: var(--board-gap-size) black solid;
+    border-right: var(--board-gap-size) black solid;
+  }
+  .border-top {
+    border-top: var(--board-gap-size) black solid;
+  }
+  .border-bottom {
+    border-bottom: var(--board-gap-size) black solid;
   }
 </style>
