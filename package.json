@@ -1,6 +1,17 @@
 {
   "name": "vs-tictactoe",
   "publisher": "timthedev07",
+  "galleryBanner": {
+    "color": "#67f00b"
+  },
+  "repository": {
+    "url": "https://github.com/timthedev07/vs-tictactoe"
+  },
+  "icon": "media/vs-tictactoe.png",
+  "author": {
+    "email": "timbusiness.work07@gmail.com",
+    "name": "Tim"
+  },
   "displayName": "vs-tictactoe",
   "description": "Play tic tac toe right in your VScode sidebar while procrastinating(I know you often do).",
   "version": "0.0.1",
