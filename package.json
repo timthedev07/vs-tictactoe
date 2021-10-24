@@ -1,9 +1,9 @@
 {
   "name": "vs-tictactoe",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "timthedev07",
   "galleryBanner": {
-    "color": "#67f00b"
+    "color": "#0b73f0"
   },
   "repository": {
     "url": "https://github.com/timthedev07/vs-tictactoe"
