@@ -95,7 +95,7 @@ export const utility = (board: Board) => {
   }
 };
 
-const scrubMove = (board: Board) => {
+export const scrubMove = (board: Board) => {
   const getRandom = (min: number, max: number) => {
     return Math.random() * (max - min) + min;
   };
