@@ -97,7 +97,9 @@ export const utility = (board: Board) => {
 
 export const scrubMove = (board: Board): Action => {
   const getRandom = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
   let i;
@@ -105,6 +107,7 @@ export const scrubMove = (board: Board): Action => {
   do {
     i = getRandom(0, 3);
     j = getRandom(0, 3);
+    console.log(`Looping... ${i}, ${j}`);
   } while (board[i][j] !== EMPTY);
 
   return [i, j];
